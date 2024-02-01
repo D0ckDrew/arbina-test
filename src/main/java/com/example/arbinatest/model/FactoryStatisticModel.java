@@ -7,7 +7,7 @@ public class FactoryStatisticModel {
     private Long count;
 
     public FactoryStatisticModel(int year, int month, int day, Long count) {
-        this.date = LocalDate.of(year,month,day);
+        this.date = LocalDate.of(year, month, day);
         this.count = count;
     }
 

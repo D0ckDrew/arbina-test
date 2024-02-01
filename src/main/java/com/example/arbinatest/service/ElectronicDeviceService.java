@@ -54,11 +54,23 @@ public class ElectronicDeviceService {
         }
 
         electronicDevice.setFactory(factoryOptional.get());
-        electronicDeviceRepository.save(electronicDevice);
-        return true;
+
+        try {
+            electronicDeviceRepository.save(electronicDevice);
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void deleteElectronicDevice(Long id) {
-        electronicDeviceRepository.deleteById(id);
+    public boolean deleteElectronicDevice(Long id) {
+        try {
+            electronicDeviceRepository.deleteById(id);
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

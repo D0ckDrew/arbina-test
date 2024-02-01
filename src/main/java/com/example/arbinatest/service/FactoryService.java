@@ -20,11 +20,23 @@ public class FactoryService {
         return factoryRepository.findAll();
     }
 
-    public void addFactory(Factory factory) {
-        factoryRepository.save(factory);
+    public boolean addFactory(Factory factory) {
+        try {
+            factoryRepository.save(factory);
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void deleteFactory(Long factoryId) {
-        factoryRepository.deleteById(factoryId);
+    public boolean deleteFactory(Long factoryId) {
+        try {
+            factoryRepository.deleteById(factoryId);
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

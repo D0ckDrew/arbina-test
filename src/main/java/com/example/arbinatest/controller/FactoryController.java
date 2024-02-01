@@ -3,6 +3,8 @@ package com.example.arbinatest.controller;
 import com.example.arbinatest.entity.Factory;
 import com.example.arbinatest.service.FactoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +25,20 @@ public class FactoryController {
     }
 
     @PostMapping("/add")
-    public void addElectronicDevice(@RequestBody Factory factory) {
-        factoryService.addFactory(factory);
+    public ResponseEntity<String> addElectronicDevice(@RequestBody Factory factory) {
+        if (factoryService.addFactory(factory)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Entry added successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An error occurred while adding an entry");
+        }
     }
 
     @DeleteMapping("/delete")
-    public void deleteElectronicDevice(@RequestBody Long id) {
-        factoryService.deleteFactory(id);
+    public ResponseEntity<String> deleteElectronicDevice(@RequestBody Long id) {
+        if (factoryService.deleteFactory(id)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Entry successfully deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body("An error occurred when deleting an entry");
+        }
     }
 }
